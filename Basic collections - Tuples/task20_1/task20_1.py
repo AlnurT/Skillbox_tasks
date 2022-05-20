@@ -22,9 +22,9 @@ def is_prime(index: int) -> bool:
     if index % 2 == 0 and index != 2 or index == 1:
         return False
     divisor = 3
-    while index % divisor != 0 and divisor ** 2 < index:
+    while index % divisor != 0 and divisor**2 < index:
         divisor += 2
-    return divisor ** 2 > index
+    return divisor**2 > index
 
 
 def create_list_with_prime_index(obj) -> list:
