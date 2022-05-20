@@ -31,4 +31,6 @@ def test_is_prime(index, result):
 )
 def test_create_list_with_prime_index(obj, prime_list):
     assert create_list_with_prime_index(obj) == prime_list
+
+    some text
 """
