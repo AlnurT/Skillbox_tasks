@@ -26,6 +26,7 @@ isort = "^5.10.1"
 black = "^22.3"
 pre-commit = "^2.19.0"
 pytest = "^7.1.2"
+mypy = "^0.960"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -42,3 +43,8 @@ skip_gitignore=true
 
 [tool.pytest.ini_options]
 addopts = "--doctest-modules --doctest-continue-on-failure"
+
+[tool.mypy]
+disallow_untyped_defs = true
+warn_return_any = true
+warn_unused_configs = true
