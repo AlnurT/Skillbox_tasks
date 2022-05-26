@@ -36,35 +36,36 @@ guests = [‘Петя’, ‘Ваня’, ‘Саша’, ‘Лиза’, ‘К�
 """
 
 
-"""def add_or_remove_guests(guests: list, entrance_or_exit: str, guest_name: str) -> list:
-    match entrance_or_exit:
-        case "пришёл" | "пришла" if len(guests) < 6:
-            guests.append(guest_name)
-        case "ушёл" | "ушла" if len(guests) > 0:
-            guests.remove(guest_name)
-    return guests
+dict_of_messages = {
+    ("пришёл", 6): "прости, но мест нет.",
+    ("пришёл", -1): "привет!",
+    ("ушёл", 0): "такого человека нет. Гостей больше нет",
+    ("ушёл", -1): "пока.",
+    ("пора спать", -1): "прости, но вечеринка закончилась, все легли спать.",
+}
+
+
+def add_or_remove_guests(guests: list, entrance_or_exit: str, guest_name: str) -> tuple:
+    if entrance_or_exit == "пришёл" and len(guests) < 6:
+        guests.append(guest_name)
+    elif entrance_or_exit == "ушёл" and len(guests) > 0:
+        guests.remove(guest_name)
+    elif (len(guests) == 0 or len(guests) == 6) and entrance_or_exit != "пора спать":
+        return len(guests), guests
+    return -1, guests
 
 
 def main():
     guests = ["Петя", "Ваня", "Саша", "Лиза", "Катя"]
-    while True:
+    entrance_or_exit = ""
+    while entrance_or_exit != "пора спать":
         print(f"\nСейчас на вечеринке {len(guests)} человек: {guests}")
         entrance_or_exit = input("Гость пришёл или ушёл? ")
         guest_name = input("Имя гостя: ")
-        match entrance_or_exit:
-            case "пришёл" | "пришла" if len(guests) == 6:
-                print(f"Прости, {guest_name}, но мест нет.")
-            case "пришёл" | "пришла":
-                print(f"Привет, {guest_name}!")
-            case "ушёл" | "ушла" if len(guests) == 0:
-                print("Гостей больше нет")
-            case "ушёл" | "ушла":
-                print(f"Пока, {guest_name}!")
-            case "пора спать":
-                print(f"\n{guest_name}, прости, но вечеринка закончилась, все легли спать.")
-                break
-        add_or_remove_guests(guests, entrance_or_exit, guest_name)
+
+        code_for_message = add_or_remove_guests(guests, entrance_or_exit, guest_name)[0]
+        print(f"\n{guest_name}, {dict_of_messages[entrance_or_exit, code_for_message]}")
 
 
 if __name__ == "__main__":
-    main()"""
+    main()
