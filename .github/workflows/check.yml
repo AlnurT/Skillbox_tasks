@@ -6,7 +6,7 @@ on:
       - '**.py'
       - '.github/workflows/**'
       - '.flake8'
-      - './requirements.txt'
+      - 'poetry.lock'
       - 'pyproject.toml'
   pull_request:
     types:
@@ -18,7 +18,7 @@ on:
       - '**.py'
       - '.github/workflows/**'
       - '.flake8'
-      - './requirements.txt'
+      - 'poetry.lock'
       - 'pyproject.toml'
 
 jobs:
@@ -29,10 +29,12 @@ jobs:
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v3
         with:
-          python-version: 3.9
+          python-version: 3.10.0
       - name: Install dependencies
         run: |
-          pip install -r ./requirements.txt
+          pip install poetry==1.1.13
+          poetry config virtualenvs.create false
+          poetry install --no-interaction --no-ansi
       - name: Black check
         run: |
           black . --check
@@ -42,6 +44,9 @@ jobs:
       - name: Lint with flake8
         run: |
           flake8 . --format="::error file=%(path)s,line=%(row)d,col=%(col)d::%(path)s:%(row)d:%(col)d: %(code)s %(text)s"
+      - name: MyPy check type hints
+        run: |
+          poetry run mypy .
       - name: Test with pytest
         run: |
           pytest . -v
