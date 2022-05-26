@@ -37,22 +37,23 @@ guests = [‘Петя’, ‘Ваня’, ‘Саша’, ‘Лиза’, ‘К�
 
 
 dict_of_messages = {
-    ("пришёл", 6): "прости, но мест нет.",
-    ("пришёл", -1): "привет!",
-    ("ушёл", 0): "такого человека нет. Гостей больше нет",
-    ("ушёл", -1): "пока.",
-    ("пора спать", -1): "прости, но вечеринка закончилась, все легли спать.",
+    ("пришёл", False): "прости, но мест нет.",
+    ("пришёл", True): "привет!",
+    ("ушёл", False): "такого человека нет. Гостей больше нет",
+    ("ушёл", True): "пока.",
+    ("пора спать", False): "прости, но вечеринка закончилась, все легли спать.",
 }
 
 
-def add_or_remove_guests(guests: list, entrance_or_exit: str, guest_name: str) -> tuple:
-    if entrance_or_exit == "пришёл" and len(guests) < 6:
-        guests.append(guest_name)
-    elif entrance_or_exit == "ушёл" and len(guests) > 0:
-        guests.remove(guest_name)
-    elif (len(guests) == 0 or len(guests) == 6) and entrance_or_exit != "пора спать":
-        return len(guests), guests
-    return -1, guests
+def is_action_in_guests_list(guests_num: int, entrance_or_exit: str) -> bool:
+    if (
+        entrance_or_exit == "пора спать"
+        or (guests_num == 0 and entrance_or_exit == "ушёл")
+        or (guests_num == 6 and entrance_or_exit == "пришёл")
+    ):
+        return False
+    else:
+        return True
 
 
 def main():
@@ -63,8 +64,13 @@ def main():
         entrance_or_exit = input("Гость пришёл или ушёл? ")
         guest_name = input("Имя гостя: ")
 
-        code_for_message = add_or_remove_guests(guests, entrance_or_exit, guest_name)[0]
-        print(f"\n{guest_name}, {dict_of_messages[entrance_or_exit, code_for_message]}")
+        action = is_action_in_guests_list(len(guests), entrance_or_exit)
+        if action and entrance_or_exit == "пришёл":
+            guests.append(guest_name)
+        elif action and entrance_or_exit == "ушёл":
+            guests.remove(guest_name)
+
+        print(f"\n{guest_name}, {dict_of_messages[entrance_or_exit, action]}")
 
 
 if __name__ == "__main__":

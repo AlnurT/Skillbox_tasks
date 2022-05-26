@@ -1,20 +1,16 @@
 import pytest
-from task_16_4.task_16_4 import add_or_remove_guests
-
-guests = ["Петя", "Ваня", "Саша", "Лиза", "Катя", "Талга"]
+from task_16_4.task_16_4 import is_action_in_guests_list
 
 
 @pytest.mark.parametrize(
-    ("guests_before_action", "action", "guests_after_action"),
+    ("guests_num", "action", "is_action"),
     [
-        ([], "пришёл", (-1, ["Талга"])),
-        (guests, "пришёл", (6, guests)),
-        (["Талга"], "ушёл", (-1, [])),
-        ([], "ушёл", (0, [])),
+        (0, "пришёл", True),
+        (6, "пришёл", False),
+        (6, "ушёл", True),
+        (0, "ушёл", False),
+        (0, "пора спать", False),
     ],
 )
-def test_add_or_remove_guests(guests_before_action, action, guests_after_action):
-    assert (
-        add_or_remove_guests(guests_before_action, action, "Талга")
-        == guests_after_action
-    )
+def test_add_or_remove_guests(guests_num, action, is_action):
+    assert is_action_in_guests_list(guests_num, action) == is_action
