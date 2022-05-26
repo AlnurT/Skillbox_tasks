@@ -21,7 +21,7 @@
 """
 
 
-def find_long_word(text: str):
+def find_long_word(text: str) -> str:
     text_list = text.split()
     long_word = ""
     for word in text_list:
