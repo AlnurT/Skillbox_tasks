@@ -31,32 +31,32 @@ violator_songs = [
 """
 
 
-def sum_up_song_times(violator_songs: list, my_song: str, song_time: float) -> float:
-    for song, time in violator_songs:
-        if song == my_song:
-            song_time += time
+violator_songs = {
+    "World in My Eyes": 4.86,
+    "Sweetest Perfection": 4.43,
+    "Personal Jesus": 4.56,
+    "Halo": 4.9,
+    "Waiting for the Night": 6.07,
+    "Enjoy the Silence": 4.20,
+    "Policy of Truth": 4.76,
+    "Blue Dress": 4.29,
+    "Clean": 5.83,
+}
+
+
+def sum_up_song_times(my_song_time: float, song_time: float) -> float:
+    song_time += my_song_time
     return song_time
 
 
 def main():
-    violator_songs = [
-        ["World in My Eyes", 4.86],
-        ["Sweetest Perfection", 4.43],
-        ["Personal Jesus", 4.56],
-        ["Halo", 4.9],
-        ["Waiting for the Night", 6.07],
-        ["Enjoy the Silence", 4.20],
-        ["Policy of Truth", 4.76],
-        ["Blue Dress", 4.29],
-        ["Clean", 5.83],
-    ]
     num_of_song = int(input("Сколько песен выбрать? "))
     song_time = 0
 
     for num in range(num_of_song):
         print(f"Название {num + 1} песни:", end=" ")
         my_song = input()
-        song_time = sum_up_song_times(violator_songs, my_song, song_time)
+        song_time = sum_up_song_times(violator_songs.get(my_song, 0), song_time)
 
     print(f"Общее время звучания песен: {song_time} минут")
 
