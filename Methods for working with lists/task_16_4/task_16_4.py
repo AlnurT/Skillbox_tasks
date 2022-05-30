@@ -37,40 +37,43 @@ guests = [‘Петя’, ‘Ваня’, ‘Саша’, ‘Лиза’, ‘К�
 
 
 dict_of_messages = {
-    ("пришёл", False): "прости, но мест нет.",
-    ("пришёл", True): "привет!",
-    ("ушёл", False): "такого человека нет. Гостей больше нет",
-    ("ушёл", True): "пока.",
-    ("пора спать", False): "прости, но вечеринка закончилась, все легли спать.",
+    ("in", False): "прости, но мест нет.",
+    ("in", True): "привет!",
+    ("out", False): "такого человека нет. Гостей больше нет",
+    ("out", True): "пока.",
+    ("time to sleep", False): "прости, но вечеринка закончилась, все легли спать.",
 }
 
 
 def is_action_in_guests_list(guests_num: int, entrance_or_exit: str) -> bool:
-    if (
-        entrance_or_exit == "пора спать"
-        or (guests_num == 0 and entrance_or_exit == "ушёл")
-        or (guests_num == 6 and entrance_or_exit == "пришёл")
-    ):
-        return False
-    else:
-        return True
+    return not (
+        entrance_or_exit == "time to sleep"
+        or (guests_num == 0 and entrance_or_exit == "out")
+        or (guests_num == 6 and entrance_or_exit == "in")
+    )
+
+
+def adding_or_removing_guest(guests: list, guest_name: str, in_or_out: str) -> list:
+    if in_or_out == "in":
+        guests.append(guest_name)
+    elif in_or_out == "out":
+        guests.remove(guest_name)
+    return guests
 
 
 def main():
-    guests = ["Петя", "Ваня", "Саша", "Лиза", "Катя"]
-    entrance_or_exit = ""
-    while entrance_or_exit != "пора спать":
+    guests = ["Alnur", "Ivan", "Alexey", "Lisa", "Ira"]
+    in_or_out = ""
+    while in_or_out != "time to sleep":
         print(f"\nСейчас на вечеринке {len(guests)} человек: {guests}")
-        entrance_or_exit = input("Гость пришёл или ушёл? ")
+        in_or_out = input("Гость пришёл(in) или ушёл(out)? ")
         guest_name = input("Имя гостя: ")
 
-        action = is_action_in_guests_list(len(guests), entrance_or_exit)
-        if action and entrance_or_exit == "пришёл":
-            guests.append(guest_name)
-        elif action and entrance_or_exit == "ушёл":
-            guests.remove(guest_name)
+        action = is_action_in_guests_list(len(guests), in_or_out)
+        if action:
+            adding_or_removing_guest(guests, guest_name, in_or_out)
 
-        print(f"\n{guest_name}, {dict_of_messages[entrance_or_exit, action]}")
+        print(f"\n{guest_name}, {dict_of_messages[in_or_out, action]}")
 
 
 if __name__ == "__main__":
