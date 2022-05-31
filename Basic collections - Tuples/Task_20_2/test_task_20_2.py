@@ -1,5 +1,5 @@
 import pytest
-from task_20_2.task_20_2 import create_list_with_prime_index, is_prime
+from Task_20_2.task_20_2 import create_list_with_prime_index, is_prime
 
 
 @pytest.mark.parametrize(
