@@ -1,4 +1,4 @@
-from task_20_1.task_20_1 import (
+from Task_20_1.task_20_1 import (
     create_list_of_id_and_age,
     create_set_of_interests_and_total_lenght_of_surnames,
 )
