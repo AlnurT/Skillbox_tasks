@@ -15,18 +15,14 @@
 """
 
 
-def create_alphabet():
-    alphabet = ""
-    for unicode in range(ord("а"), ord("я") + 1):
-        alphabet += chr(unicode)
-    return alphabet
+import string
 
 
 def encrypt_text(text: str, shift: int, alphabet: str) -> str:
     cypher = ""
     for symbol in text:
         num_symbol = alphabet.find(symbol)
-        if (num_symbol + shift) >= 31 and num_symbol != -1:
+        if (num_symbol + shift) >= len(alphabet) and num_symbol != -1:
             cypher += alphabet[num_symbol + shift - len(alphabet)]
         elif num_symbol != -1:
             cypher += alphabet[num_symbol + shift]
@@ -39,7 +35,8 @@ def main():
     text = input("Введите сообщение: ").lower()
     shift = int(input("Введите сдвиг: "))
 
-    print(f"Зашифрованное сообщение: {encrypt_text(text, shift, create_alphabet())}")
+    alphabet = string.ascii_lowercase
+    print(f"Зашифрованное сообщение: {encrypt_text(text, shift, alphabet)}")
 
 
 if __name__ == "__main__":
