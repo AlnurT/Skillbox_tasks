@@ -18,7 +18,7 @@ b hppe jefb/ bnftqbdftO bsf pof ipoljoh sfbuh efbj .. fu(tm pe psfn gp tf"uip
 """
 
 
-cipher = (
+CIPHER = (
     "vujgvmCfb tj ufscfu ouib z/vhm "
     "jdjuFyqm jt fscfuu uibo jdju/jnqm "
     "fTjnqm tj scfuuf ibou fy/dpnqm "
@@ -67,7 +67,7 @@ def shift_character_position(caesar_cipher_list: list, symbol_shift: int) -> lis
 
 def main():
     caesar_shift = -1
-    caesar_cipher_list = decipher_with_caesar_cipher(cipher, caesar_shift)
+    caesar_cipher_list = decipher_with_caesar_cipher(CIPHER, caesar_shift)
 
     symbol_shift = -3
     philosophy_text_list = shift_character_position(caesar_cipher_list, symbol_shift)
