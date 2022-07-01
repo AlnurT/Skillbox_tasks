@@ -25,10 +25,8 @@
 
 
 def check_shift_of_string(first_str: str, second_str: str) -> int:
-    for shift in range(len(first_str)):
-        if first_str == f"{second_str[shift:]}{second_str[:shift]}":
-            return min(shift, len(first_str) - shift)
-    return -1
+    text = first_str * 2
+    return text.find(second_str)
 
 
 def main():
