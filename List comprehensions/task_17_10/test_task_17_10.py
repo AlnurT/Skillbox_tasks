@@ -12,6 +12,8 @@ from task_17_10.task_17_10 import encrypt_text
         ("abc xyz!", -1, "zab wxy!"),
         ("abc xyz!", 26, "abc xyz!"),
         ("abc xyz!", -26, "abc xyz!"),
+        ("abc xyz!", -30, "wxy tuv!"),
+        ("abc xyz!", 31, "fgh cde!"),
     ],
 )
 def test_encrypt_text(text, shift, cypher):

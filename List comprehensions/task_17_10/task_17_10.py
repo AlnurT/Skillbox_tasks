@@ -19,16 +19,12 @@ import string
 
 
 def encrypt_text(text: str, shift: int, alphabet: str) -> str:
-    cypher = ""
-    for symbol in text:
-        num_symbol = alphabet.find(symbol)
-        if (num_symbol + shift) >= len(alphabet) and num_symbol != -1:
-            cypher += alphabet[num_symbol + shift - len(alphabet)]
-        elif num_symbol != -1:
-            cypher += alphabet[num_symbol + shift]
-        else:
-            cypher += symbol
-    return cypher
+    if abs(shift) > len(alphabet):
+        shift %= len(alphabet)
+    if shift < 0:
+        shift += len(alphabet)
+    cypher = "".maketrans(alphabet, alphabet[shift:] + alphabet[:shift])
+    return text.translate(cypher)
 
 
 def main():
