@@ -18,20 +18,12 @@ s = 'aaaabbсaa' преобразуется в 'a4b2с1a2',
 """
 
 
+from itertools import chain, groupby
+
+
 def encode_string(text: str) -> str:
-    encode_text = ""
-    repeat = 1
-    for num in range(len(text) - 1):
-        if text[num] == text[num + 1]:
-            repeat += 1
-        elif num == len(text) - 2:
-            encode_text = "{}{}{}{}1".format(
-                encode_text, text[num], repeat, text[num + 1]
-            )
-        else:
-            encode_text = "{}{}{}".format(encode_text, text[num], repeat)
-            repeat = 1
-    return encode_text
+    encode_text = ((symbol, str(len(tuple(group)))) for symbol, group in groupby(text))
+    return "".join(chain.from_iterable(encode_text))
 
 
 def main():
