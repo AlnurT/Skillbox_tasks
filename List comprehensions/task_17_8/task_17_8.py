@@ -25,10 +25,10 @@ N палочек выставили в один ряд, пронумеровав
 
 def knock_down_sticks(sticks: str, left_i: int, right_i: int) -> str:
     return "".join(
-        [
-            "." if left_i <= pos + 1 <= right_i else sticks[pos]
-            for pos in range(len(sticks))
-        ]
+        (
+            "." if left_i <= pos + 1 <= right_i else stick
+            for pos, stick in enumerate(sticks)
+        )
     )
 
 
