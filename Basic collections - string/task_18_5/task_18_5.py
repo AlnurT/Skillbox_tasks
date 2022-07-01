@@ -22,16 +22,21 @@
 """
 
 
+MESSAGES = {
+    1: "Введите больше символов.\n",
+    2: "Введите один символ верхнего регистра.\n",
+    3: "Введите больше символов.\n",
+    0: "Это надёжный пароль!",
+}
+
+
 def check_password(password: str) -> int:
     if len(password) < 8:
         return 1
     elif password.islower():
         return 2
-    digit = 0
-    for symbol in password:
-        if symbol.isdigit():
-            digit += 1
-    if digit < 3:
+    digit = tuple((symbol for symbol in password if symbol.isdigit()))
+    if len(digit) < 3:
         return 3
     return 0
 
@@ -41,14 +46,8 @@ def main():
         password = input("Придумайте пароль: ")
 
         error = check_password(password)
-        if error == 1:
-            print("Введите больше символов.\n")
-        elif error == 2:
-            print("Введите один символ верхнего регистра.\n")
-        elif error == 3:
-            print("Введите больше символов.\n")
-        else:
-            print("Это надёжный пароль!")
+        print(MESSAGES[error])
+        if error == 0:
             break
 
 
