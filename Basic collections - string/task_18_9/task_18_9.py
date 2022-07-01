@@ -16,13 +16,12 @@
 Новое сообщение: ятоХ ,. мзов:онжо и тен.
 """
 
-import re
+from re import split
 
 
 def flip_message(message: str) -> str:
-    message_list = re.split(r"(\W+)", message)
-    new_message_list = [text[::-1] if text.isalpha() else text for text in message_list]
-    return "".join(new_message_list)
+    message_list = split(r"(\W+)", message)
+    return "".join([text[::-1] if text.isalpha() else text for text in message_list])
 
 
 def main():
